@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "name": "FitApp",
+    "slug": "FitApp",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ]
+  }
+}
