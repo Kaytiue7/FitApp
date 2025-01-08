@@ -11,6 +11,18 @@ const styles = StyleSheet.create({
   labelfocused: {
     color: '#246DDD',
   },
+
+
+  greenSmall: {
+    fontSize: 14,
+    fontWeight: 'normal',
+    color: '#4CAF50',
+  },
+  redSmall: {
+    fontSize: 14,
+    fontWeight: 'normal',
+    color: '#FF1700',
+  },
 });
 
 export default styles;
