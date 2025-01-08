@@ -7,6 +7,9 @@ import { BlurView } from 'expo-blur';
 import { StatusBar } from 'expo-status-bar';
 import crypto from 'crypto-js';
 
+import stylesButton from '../styles/buttons.js';
+import stylesInput from '../styles/input.js';
+
 export default function RegisterPage({ navigation }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -71,7 +74,7 @@ export default function RegisterPage({ navigation }) {
         setConfirm('Kayıt Başarılı!');
         setShowConfirm(true);
         setTimeout(() => {
-          navigation.navigate('MainContainer'); 
+          navigation.navigate('UserInformationFirst'); 
         }, 3000); 
       } catch (error) {
         console.error('Kayıt hatası:', error);
@@ -84,14 +87,15 @@ export default function RegisterPage({ navigation }) {
   return (
     <ImageBackground
       source={require('../assets/greenbg2.png')}
-      style={styles.background}
+      style={{flex:1,justifyContent: 'center', alignItems: 'center'}}
     >
-      <Text style={styles.title}>Sağlıklı bir yaşamın ilk adımları</Text>
+      <Text style={{color: '#FFF',fontSize:40, fontWeight:'bold',textAlign: 'center',justifyContent: 'center',marginBottom: '20%',paddingHorizontal:40}}>
+        Sağlıklı bir yaşamın ilk adımları</Text>
 
-      <View style={styles.overlay}>
-        <BlurView intensity={50} style={styles.inputContainer}>
+      <View style={{justifyContent: 'center', paddingHorizontal: 20, position: 'absolute', bottom: 0, marginBottom: 60,}}>
+        <BlurView intensity={60} style={stylesInput.BlurViewContainer}>
           <TextInput
-            style={styles.input}
+            style={stylesInput.BlurInputContainer}
             placeholder="Kullanıcı Adı"
             placeholderTextColor="#fff"
             value={username}
@@ -99,9 +103,9 @@ export default function RegisterPage({ navigation }) {
           />
         </BlurView>
 
-        <BlurView intensity={50} style={styles.inputContainer}>
+        <BlurView intensity={60} style={stylesInput.BlurViewContainer}>
           <TextInput
-            style={styles.input}
+            style={stylesInput.BlurInputContainer}
             placeholder="Şifre"
             placeholderTextColor="#fff"
             secureTextEntry
@@ -110,7 +114,7 @@ export default function RegisterPage({ navigation }) {
           />
         </BlurView>
 
-        <TouchableOpacity style={styles.button} onPress={handleRegister}>
+        <TouchableOpacity style={[stylesButton.GreenButtonLong,{marginBottom:10}]} onPress={handleRegister}>
           <Text style={styles.buttonText}>Kayıt Ol  →</Text>
         </TouchableOpacity>
 

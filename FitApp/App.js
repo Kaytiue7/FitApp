@@ -7,7 +7,7 @@ import * as SecureStore from 'expo-secure-store';
 import MainContainer from './navigation/MainContainer';
 import LoginPage from './pages/Login';
 import RegisterPage from './pages/Register';
-
+import UserInformationFirst from './pages/UserInformationFirst';
 
 
 
@@ -60,13 +60,18 @@ export default function App() {
        <NavigationContainer>
             <Stack.Navigator initialRouteName={initialRouteName}>  
                 <Stack.Screen
+                    name="Login"
+                    component={LoginPage}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
                     name="Register"
                     component={RegisterPage}
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen
-                    name="Login"
-                    component={LoginPage}
+                    name="UserInformationFirst"
+                    component={UserInformationFirst}
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen

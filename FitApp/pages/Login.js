@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground,StyleSheet } from 'react-native';
-import { firestore } from '../firebase/firebaseConfig.js'; // Firestore bağlantısını doğru yapın
+import { firestore } from '../firebase/firebaseConfig.js';
 import * as SecureStore from 'expo-secure-store';
 import { BlurView } from 'expo-blur';
 import { StatusBar } from 'expo-status-bar';
 import crypto from 'crypto-js';
+
+import stylesButton from '../styles/buttons.js';
+import stylesInput from '../styles/input.js';
 
 export default function LoginPage({ navigation }) {
   const [username, setUsername] = useState('');
@@ -73,14 +76,16 @@ export default function LoginPage({ navigation }) {
   return (
     <ImageBackground
       source={require('../assets/greenbg2.png')}
-      style={styles.background}
+      style={{flex:1,justifyContent: 'center', alignItems: 'center'}}
     >
-      <Text style={styles.title}>Daha sağlıklı bir yaşam için sen de bir adım at</Text>
+      <Text style={{color: '#FFF',fontSize:40, fontWeight:'bold',textAlign: 'center',justifyContent: 'center',marginBottom: '20%',paddingHorizontal:40}}>
+        Daha sağlıklı bir yaşam için sen de bir adım at</Text>
 
-      <View style={styles.overlay}>
-        <BlurView intensity={50} style={styles.inputContainer}>
+      <View style={{justifyContent: 'center', paddingHorizontal: 20, position: 'absolute', bottom: 0, marginBottom: 60,}}>
+        <View style={{shadowColor:'#000', elevation:5,}}>
+          <BlurView intensity={60} style={stylesInput.BlurViewContainer}>
           <TextInput
-            style={styles.input}
+            style={stylesInput.BlurInputContainer}
             placeholder="Kullanıcı Adı"
             placeholderTextColor="#fff"
             value={username}
@@ -90,10 +95,12 @@ export default function LoginPage({ navigation }) {
             }}
           />
         </BlurView>
+        </View>
+        
 
-        <BlurView intensity={50} style={styles.inputContainer}>
+        <BlurView intensity={60} style={stylesInput.BlurViewContainer}>
           <TextInput
-            style={styles.input}
+            style={stylesInput.BlurInputContainer}
             placeholder="Şifre"
             placeholderTextColor="#fff"
             secureTextEntry
@@ -107,7 +114,7 @@ export default function LoginPage({ navigation }) {
 
         
 
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <TouchableOpacity style={[stylesButton.GreenButtonLong,{marginBottom:10}]} onPress={handleLogin}>
           <Text style={styles.buttonText}>Giriş Yap  →</Text>
         </TouchableOpacity>
 
@@ -138,7 +145,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     position: 'absolute', 
     bottom: 0,  
-    marginBottom: 80,
+    marginBottom: 60,
   },
   title: {
     color: 'white',
