@@ -12,6 +12,16 @@ const styles = StyleSheet.create({
         left: 0,
         width: '100%',
         zIndex: 1000, 
+        shadowOpacity: 1,
+        shadowColor: '#000',
+        elevation: 10,
+      },
+      WhiteHeader: {
+        backgroundColor: '#fff',
+        shadowOpacity: 1,
+        shadowColor: '#000',
+        elevation: 10,
+        height:36,
       },
       ModalBackground:{
         flex: 1,
@@ -29,6 +39,19 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         elevation: 10,
       },
+      GreenBorder: {
+        position: 'absolute',
+        bottom: 80, 
+        alignSelf: 'center',
+        width: '90%', 
+        height: 55,
+        borderColor: '#fff',
+        borderWidth: 1,
+        borderRadius: 20,
+        flexDirection: 'row', // Yatay hizalama
+        alignItems: 'center', // Dikey ortalama
+        paddingHorizontal: 10, // Sağ ve sol boşluk
+      }
 });
 
 export default styles;

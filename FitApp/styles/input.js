@@ -42,6 +42,19 @@ const styles = StyleSheet.create({
     InputFocusedBorderStyle: {
       borderColor: '#246DDD',
     },
+
+
+
+    PickerItemStyle: {
+      borderWidth: 1, 
+      borderColor: '#65A61B', 
+      borderRadius: 8, 
+      padding: 10, 
+      marginBottom: 10, 
+      backgroundColor: '#F4F4F4', 
+      color: '#65A61B',
+      fontSize: 16, 
+    },
 });
 
 export default styles;

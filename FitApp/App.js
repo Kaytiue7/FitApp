@@ -14,51 +14,46 @@ import UserInformationFirst from './pages/UserInformationFirst';
 import { firestore } from './firebase/firebaseConfig';
 
 const Stack = createStackNavigator();
-
 export default function App() {
     const [initialRouteName, setInitialRouteName] = useState(null);
-    
-
+    const [loading, setLoading] = useState(true); 
     useEffect(() => {
-        
-
         const fetchInitialRoute = async () => {
             try {
                 const userId = await SecureStore.getItemAsync('userId');
-                console.log("userId: ", userId);
                 if (!userId) {
                     setInitialRouteName('Login');
+                    setLoading(false); 
                     return;
                 }
-
                 const userDoc = await firestore.collection('Users').doc(userId).get();
-
                 if (userDoc.exists) {
                     const userData = userDoc.data();
-                    if (userData.validity !== false ) {
+                    if (userData.validity !== false) {
                         setInitialRouteName('MainContainer');
                     } else {
                         setInitialRouteName('Login');
-                        console.log("validity false ise UserLoginType'a yönlendir: ", userId);
                     }
                 } else {
                     setInitialRouteName('Login');
-                    console.log("Kullanıcı verisi bulunamazsa UserLoginType'a yönlendir: ", userId);
                 }
             } catch (error) {
                 console.error("Hata oluştu:", error);
-                setInitialRouteName('Login'); 
-                console.log("Hata durumunda  Login'a yönlendir: ", userId);
+                setInitialRouteName('Login');
             }
+            setLoading(false);
         };
 
         fetchInitialRoute();
     }, []);
 
+    if (loading) { 
+        return <LoadingScreen />;
+    }
 
     return (
-       <NavigationContainer>
-            <Stack.Navigator initialRouteName={initialRouteName}>  
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName={initialRouteName}>
                 <Stack.Screen
                     name="Login"
                     component={LoginPage}
@@ -84,13 +79,11 @@ export default function App() {
     );
 }
 
+
 function LoadingScreen() {
     return (
-        <View style={{flex: 1, justifyContent: 'space-around',  alignItems: 'center', flexDirection:'column' }}>  
-        <View></View>
-            
+        <View style={{flex: 1, justifyContent: 'space-around',  alignItems: 'center', flexDirection:'column' }}>     
             <ActivityIndicator size="large" color="#000"/>
         </View>
     );
 }
-//<ImageBackground style={{width:200,height:200,}}source={require('./assets/icon.png')}></ImageBackground>
