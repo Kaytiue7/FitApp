@@ -51,7 +51,25 @@ const styles = StyleSheet.create({
         flexDirection: 'row', // Yatay hizalama
         alignItems: 'center', // Dikey ortalama
         paddingHorizontal: 10, // Sağ ve sol boşluk
-      }
+      },
+      GreenBorderVertical: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: 20,
+        height: 55,
+        borderColor: '#fff',
+        borderWidth: 1,
+        borderRadius: 20,
+        flexDirection: 'row', // Yatay hizalama
+        alignItems: 'center', // Dikey ortalama
+        paddingHorizontal: 10, // Sağ ve sol boşluk
+      },
+      ModalBackground:{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      },
 });
 
 export default styles;
