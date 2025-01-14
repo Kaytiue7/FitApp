@@ -11,6 +11,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import stylesView from '../../styles/view';
 
+import ModalActivityGroup from '../../components/ModalActivityLists';
+
 export default function TasksScreen() {
   const [tabs, setTabs] = useState([]);
   const [activeTab, setActiveTab] = useState('');
@@ -24,7 +26,12 @@ export default function TasksScreen() {
 
   const [date, setDate] = useState('');
 
-  
+  const [isActivityGroupModalVisible,setIsActivityModalVisible] = useState(false);
+
+  const toggleActivityGroupModal = () => {
+    setIsActivityModalVisible(!isActivityGroupModalVisible);
+    console.log('isActivityGroupModalVisible: ',isActivityGroupModalVisible)
+  };
 
   useEffect(() => {
     const fetchUserId = async () => {
@@ -47,30 +54,46 @@ export default function TasksScreen() {
     fetchUserId();
   }, []);
 
-
   useEffect(() => {
-    const fetchTabs = async () => {
-      try {
-        const snapshot = await firestore.collection('Days').get();
-        const fetchedTabs = snapshot.docs.map((doc) => doc.data().activityName);
-        setTabs(fetchedTabs.slice(0, 5));
-        if (fetchedTabs.length > 0) setActiveTab(fetchedTabs[0]);
-      } catch (error) {
-        console.error('Error fetching tabs:', error);
-      }
-    };
-
-    fetchTabs();
-  }, []);
-
-  useEffect(() => {
-
     const currentDate = new Date(); 
     const options = { day: '2-digit', month: 'long', year: 'numeric' };
     const formattedDate = new Intl.DateTimeFormat('tr-TR', options).format(currentDate);
     setDate(formattedDate);
   }, []);
 
+  useEffect(() => {
+    const unsubscribe = firestore
+      .collection('Lists')
+      .orderBy('createdAt', 'asc') 
+      .onSnapshot(
+        (snapshot) => {
+          try {
+            const allTabs = snapshot.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+            }));
+  
+            const filteredTabs = allTabs.filter((tab) => tab.userId === userId);
+  
+            const fetchedTabs = filteredTabs.map((tab) => tab.text);
+            
+            // İlk 5 veriyi göster
+            setTabs(fetchedTabs.slice(0, 5));
+  
+            // Eğer veriler varsa, ilk veriyi aktif yap
+            if (fetchedTabs.length > 0) setActiveTab(fetchedTabs[0]);
+          } catch (error) {
+            console.error('Error updating tabs:', error);
+          }
+        },
+        (error) => {
+          console.error('Error fetching tabs:', error);
+        }
+      );
+  
+    return () => unsubscribe();
+  }, [userId]);
+  
   const handleNext = () => {
     if (tabs.length > 0) {
       const newTabs = [...tabs.slice(1), tabs[0]];
@@ -86,6 +109,7 @@ export default function TasksScreen() {
       setActiveTab(newTabs[0]);
     }
   };
+  
 
   const saveTask = async () => {
     if (task.trim() && userId) {
@@ -151,7 +175,7 @@ export default function TasksScreen() {
           ))}
         </View>
 
-        <TouchableOpacity style={styles.navButtonGray}>
+        <TouchableOpacity style={styles.navButtonGray} onPress={toggleActivityGroupModal}>
           <Ionicons name="settings-outline" size={14} color="#fff" />
         </TouchableOpacity>
       </View>
@@ -170,7 +194,9 @@ export default function TasksScreen() {
         />
       </View>
 
-     
+     {isActivityGroupModalVisible && (
+        <ModalActivityGroup toggleActivityGroupModal={toggleActivityGroupModal}/>
+     )}
     </View>
   );
 }
@@ -192,14 +218,13 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   profileName: {
-    flex: 1,
     color: "#fff",
-    fontSize: 16,
+    fontSize: 18,
     marginLeft: 10,
   },
   dateText: {
     color: "#fff",
-    fontSize: 22,
+    fontSize: 25,
     marginBottom: 10,
   },
   navigationContainer: {
