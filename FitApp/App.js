@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { View, ActivityIndicator, ImageBackground } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SecureStore from 'expo-secure-store';
 
@@ -9,21 +9,26 @@ import LoginPage from './pages/Login';
 import RegisterPage from './pages/Register';
 import UserInformationFirst from './pages/UserInformationFirst';
 
-
-
 import { firestore } from './firebase/firebaseConfig';
 
 const Stack = createStackNavigator();
+
+global.userId = null;  
+
 export default function App() {
     const [initialRouteName, setInitialRouteName] = useState(null);
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         const fetchInitialRoute = async () => {
             try {
+
+                //await AsyncStorage.clear();
                 const userId = await SecureStore.getItemAsync('userId');
+                global.userId = userId; // GLOBAL'A ATADIK
                 if (!userId) {
                     setInitialRouteName('Login');
-                    setLoading(false); 
+                    setLoading(false);
                     return;
                 }
                 const userDoc = await firestore.collection('Users').doc(userId).get();
@@ -47,43 +52,26 @@ export default function App() {
         fetchInitialRoute();
     }, []);
 
-    if (loading) { 
+    if (loading) {
         return <LoadingScreen />;
     }
 
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName={initialRouteName}>
-                <Stack.Screen
-                    name="Login"
-                    component={LoginPage}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="Register"
-                    component={RegisterPage}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="UserInformationFirst"
-                    component={UserInformationFirst}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="MainContainer"
-                    component={MainContainer}
-                    options={{ headerShown: false }}
-                />
+                <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false }} />
+                <Stack.Screen name="Register" component={RegisterPage} options={{ headerShown: false }} />
+                <Stack.Screen name="UserInformationFirst" component={UserInformationFirst} options={{ headerShown: false }} />
+                <Stack.Screen name="MainContainer" component={MainContainer} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     );
 }
 
-
 function LoadingScreen() {
     return (
-        <View style={{flex: 1, justifyContent: 'space-around',  alignItems: 'center', flexDirection:'column' }}>     
-            <ActivityIndicator size="large" color="#000"/>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <ActivityIndicator size="large" color="#000" />
         </View>
     );
 }

@@ -9,7 +9,22 @@
       "web"
     ],
     "android": {
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "resize",
+      "package": "com.kaytiue.FitApp"
+    },
+    "plugins": [
+      "expo-secure-store"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "14f8c2bb-b1c5-476e-ae86-c0919e7a8b70"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.kaytiue.FitApp",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     }
   }
 }

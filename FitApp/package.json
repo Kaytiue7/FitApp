@@ -1,25 +1,4 @@
 {
-  "dependencies": {
-    "@react-native-picker/picker": "^2.11.0",
-    "@react-navigation/bottom-tabs": "^7.2.0",
-    "@react-navigation/native": "^7.0.14",
-    "@react-navigation/stack": "^7.1.1",
-    "crypto-js": "^4.2.0",
-    "expo": "^52.0.16",
-    "expo-blur": "^14.0.1",
-    "expo-image-picker": "^16.0.4",
-    "expo-secure-store": "^14.0.0",
-    "expo-status-bar": "^2.0.0",
-    "firebase": "^11.1.0",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "react-native": "0.76.3",
-    "react-native-web": "~0.19.6",
-    "secure-store": "^0.0.1"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.19.3"
-  },
   "name": "fitapp",
   "version": "1.0.0",
   "private": true,
@@ -28,5 +7,38 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"
+  },
+  "dependencies": {
+    "@react-native-picker/picker": "2.11.0",
+    "@react-navigation/bottom-tabs": "^7.2.0",
+    "@react-navigation/native": "^7.0.14",
+    "@react-navigation/stack": "^7.1.1",
+    "autoprefixer": "^10.4.21",
+    "crypto-js": "^4.2.0",
+    "eas-cli": "^16.4.1",
+    "expo": "^53.0.0",
+    "expo-blur": "~14.1.4",
+    "expo-image-picker": "~16.1.4",
+    "expo-secure-store": "~14.2.3",
+    "expo-status-bar": "~2.2.3",
+    "firebase": "^11.1.0",
+    "moti": "^0.30.0",
+    "nativewind": "^4.1.23",
+    "postcss": "^8.5.3",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-native": "0.79.2",
+    "react-native-gesture-handler": "~2.24.0",
+    "react-native-get-random-values": "^1.11.0",
+    "react-native-reanimated": "~3.17.4",
+    "react-native-safe-area-context": "5.4.0",
+    "react-native-web": "^0.20.0",
+    "tailwindcss": "^3.3.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.3",
+    "@types/react": "~19.0.10",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "typescript": "^5.3.3"
   }
 }
